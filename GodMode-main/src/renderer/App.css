@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body {
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+		Arial, sans-serif;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+}
+#root {
+	height: 100vh;
+}
+
+:root {
+	--superprompt-height: 4rem;
+	--titlebar-height: 26px;
+	--powerbar-height: 2rem;
+	--allverticalheight: calc(
+		var(--titlebar-height) + var(--powerbar-height) + var(--superprompt-height)
+	);
+	--actual-height: calc(100vh - var(--titlebar-height));
+}
+
+#titlebar {
+	height: calc(var(--titlebar-height));
+	-webkit-app-region: drag;
+}
+
+.vex-dialog-message ol {
+	all: revert; /* locally remove tailwind styles */
+}
+.vex.vex-theme-os .vex-content {
+	width: 90vw !important;
+}
+/* https://github.com/HubSpot/vex/issues/51 */
+.vex-theme-os .title-bar {
+	margin: -1em;
+	background: #ccc;
+	padding: 1em;
+	margin-bottom: 1em;
+	border-radius: 5px 5px 0 0;
+}
+.vex-theme-os .title-bar h1 {
+	font-size: 1.3em;
+	font-weight: normal;
+	line-height: 1.2em;
+	margin: 0;
+}
+.powerbar {
+	/* height: var(--powerbar-height) */
+	position: absolute;
+	z-index: 10;
+	left: calc(50% - 3rem);
+	@apply rounded-b-lg bg-white/50;
+}
+.powerbar:hover {
+	backdrop-filter: blur(10px);
+	background: #fff;
+	animation: blur 1s linear 0s infinite;
+	/* box-shadow: 
+    0 0 60px 30px rgba(255, 255, 255, 0.8), 
+    0 0 100px 60px rgba(255, 255, 255, 0.5); */
+}
+
+#titlebar button {
+	-webkit-app-region: no-drag;
+}
+
+@media (prefers-color-scheme: dark) {
+	.myarrow:before {
+		border-color: transparent transparent #343541 transparent !important;
+	}
+}
+
+.page {
+	background: #eeeeee;
+	/* overflow: auto; */
+	/* disabled because its quite buggy */
+	/* resize: both;  */
+	width: 100%;
+	height: calc(
+		100vh - var(--titlebar-height) - var(--superprompt-height) - 2rem
+	);
+	/* margin: 0 auto; */
+	position: relative;
+}
+
+webview {
+	/* overflow: hidden; */
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: calc(
+		100vh - var(--titlebar-height) - var(--superprompt-height) - 2rem
+	);
+	display: inline-flex !important;
+}
+
+/* .flex {
+	display: flex;
+	border-radius: 8px;
+	overflow: hidden;
+} */
+#form {
+	@apply flex items-center justify-center bg-gray-600 border-0;
+}
+
+#form-wrapper {
+	@apply flex w-screen;
+}
+
+#form textarea {
+	@apply w-full h-full px-4 py-2 overflow-y-auto font-mono text-sm transition-colors bg-gray-600 border-0 shadow-inner outline-none focus:bg-gray-200;
+}
+
+#form svg {
+	@apply stroke-white; /* Adding a margin to center the svg inside the button */
+}
+
+#webviewContainer {
+	@apply flex h-max;
+}
+
+.titlebar {
+	display: flex;
+	justify-content: space-between;
+	@apply absolute top-0 left-0 right-0 z-10 items-center h-16 text-xs text-white bg-gray-600 shadow-xl;
+}
+
+.titlebar p {
+	@apply ml-4 font-mono font-semibold;
+}
+
+.titlebar button {
+	@apply p-2 mr-4 font-mono text-white bg-gray-700 rounded hover:bg-gray-500;
+}
+
+.gutter {
+	background-color: #a9a9a9;
+	background-repeat: no-repeat;
+	background-position: 50%;
+}
+
+.gutter:hover {
+	background-color: #929292;
+}
+
+.gutter.gutter-horizontal {
+	background-image: url('../images/vertical-grip.png');
+	cursor: col-resize;
+}
+
+/* this doesnt color the bar properly */
+
+/* Customize the bar color for Split.js */
+.split .split-content::after {
+	background: linear-gradient(to right, #4c6ef5, #9059ff);
+}
+
+/* Customize the bar color on hover */
+.split .split-bar:hover {
+	background: linear-gradient(to right, #4c6fff, #9f59ff);
+}
